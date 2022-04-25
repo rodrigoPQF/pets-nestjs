@@ -22,10 +22,9 @@ describe('AppController (e2e)', () => {
       .expect('This action returns all cats');
   });
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/dogs')
-      .expect(200)
-      .expect('This action returns all dogs');
+  it('/ (GET)', async () => {
+    request(app.getHttpServer()).get('/dogs').send('Doginho 1234');
+    const res = await request(app.getHttpServer()).get('/');
+    expect(res.body).toEqual('This action returns all dogs Doginho 1234');
   });
 });
