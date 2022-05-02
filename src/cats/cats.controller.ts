@@ -8,36 +8,34 @@ import {
   Put,
 } from '@nestjs/common';
 import { CatsModule } from './cats.module';
+import { CatsService } from './cats.service';
 @Controller('cats')
 export class CatsController {
-  cats: CatsModule[] = [
-    new CatsModule('Flinn', 12, 'Manicoon'),
-    new CatsModule('Blunaldo', 2, 'Manicoon'),
-    new CatsModule('Roneld', 4, 'Vira-lata'),
-  ];
+  constructor(private catsService: CatsService) {}
   @Get(':id')
   find(@Param() params): CatsModule {
-    return this.cats[params.id];
+    return this.catsService.find(params.id);
   }
   @Get()
   findAll(): CatsModule[] {
-    return this.cats;
+    return this.catsService.findAll();
   }
 
   @Post()
   create(@Body() gato): string {
-    this.cats.push(gato);
+    this.catsService.create(gato);
     return `This action returns all cats if data ${JSON.stringify(gato)}`;
   }
 
   @Put()
   update(@Body() gato): string {
+    this.catsService.update(gato);
     return `This action update cat ${gato}`;
   }
 
   @Delete(':id')
   delete(@Param() params): string {
-    this.cats.pop();
+    this.catsService.delete(params.id);
     return `Apagar o gato ${params.id}`;
   }
 }
