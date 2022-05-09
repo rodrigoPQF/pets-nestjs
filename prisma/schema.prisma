@@ -10,18 +10,37 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @default(autoincrement()) @id
-  email String  @unique
-  name  String?
-  posts Post[]
-}
+// model User {
+//   id    Int     @default(autoincrement()) @id
+//   email String  @unique
+//   name  String?
+//   posts Post[]
+// }
 
-model Post {
-  id        Int      @default(autoincrement()) @id
-  title     String
-  content   String?
-  published Boolean? @default(false)
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  Int?
+// model Post {
+//   id        Int      @default(autoincrement()) @id
+//   title     String
+//   content   String?
+//   published Boolean? @default(false)
+//   author    User?    @relation(fields: [authorId], references: [id])
+//   authorId  Int?
+// }
+// model Breed {
+//   id               Int        @default(autoincrement()) @id
+//   name             String
+//   color            String
+//   type_breed       Cat        @relation(fields: [breed], references: [id])
+//   breed            Int
+//   createdAt        DateTime   @default(now())
+//   updatedAt        DateTime   @updatedAt
+// }
+
+model Cat {
+  id          Int                @default(autoincrement()) @id
+  name        String
+  age         Int
+  marked      Boolean?           @default(false)
+  // breed       Breed[]
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
 }
