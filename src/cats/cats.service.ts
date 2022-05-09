@@ -9,6 +9,6 @@ export class CatsService {
   ) {}
 
   findAll(): Promise<Cat[]> {
-    return this.catsRepository.findAll();
+    return this.catsRepository.findAll<Cat>();
   }
 }
