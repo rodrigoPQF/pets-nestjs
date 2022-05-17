@@ -10,7 +10,6 @@ import {
 import { CatsModule } from './cats.module';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
-import { Prisma } from '@prisma/client';
 
 interface Params {
   id?: number;

@@ -3,8 +3,8 @@ import { PrismaService } from 'src/prisma.service';
 import { CatsController } from './cats.controller';
 import { CatsService } from './cats.service';
 @Module({
-  imports: [],
   controllers: [CatsController],
   providers: [CatsService, PrismaService],
+  exports: [CatsService],
 })
 export class CatsModule {}
