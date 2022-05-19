@@ -1,30 +1,52 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { AppModule } from './../src/app.module';
+import { Test } from '@nestjs/testing';
+import { CatsModule } from 'src/cats/cats.module';
+import { CatsService } from 'src/cats/cats.service';
+import { INestApplication } from '@nestjs/common';
 
-describe('AppController (e2e)', () => {
+describe('Cats', () => {
   let app: INestApplication;
+  const catsService = {
+    findAll: () => ['test'],
+    findCats: () => [
+      {
+        id: 1,
+        name: 32,
+        age: 5,
+        marked: false,
+        createdAt: '2022-05-09T18:41:22.165Z',
+        updatedAt: '2022-05-09T19:02:18.375Z',
+      },
+    ],
+    create: () => [
+      {
+        name: 'rodrigo',
+        age: 5,
+        marked: false,
+      },
+    ],
+  };
 
-  beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
+  beforeAll(async () => {
+    const moduleRef = await Test.createTestingModule({
+      imports: [CatsModule],
+    })
+      .overrideProvider(CatsService)
+      .useValue(catsService)
+      .compile();
 
-    app = moduleFixture.createNestApplication();
+    app = moduleRef.createNestApplication();
     await app.init();
   });
 
-  it('/ (GET)', () => {
+  it(`/POST cats`, () => {
     return request(app.getHttpServer())
-      .get('/cats')
+      .post('/cats')
       .expect(200)
-      .expect('This action returns all cats');
+      .expect(catsService.create());
   });
 
-  it('/ (GET)', async () => {
-    request(app.getHttpServer()).get('/dogs').send('Doginho 1234');
-    const res = await request(app.getHttpServer()).get('/');
-    expect(res.body).toEqual('This action returns all dogs Doginho 1234');
+  afterAll(async () => {
+    await app.close();
   });
 });
