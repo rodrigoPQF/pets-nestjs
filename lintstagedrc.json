@@ -1,8 +1,0 @@
-{
-    "src/**/*.{js,ts,jsx,tsx}": [
-      "yarn test --findRelatedTests",
-      "eslint --fix",
-      "git add",
-      "echo 'testando'"
-      ]
-}

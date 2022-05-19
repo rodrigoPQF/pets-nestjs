@@ -82,5 +82,11 @@
     "modulePaths": [
       "<rootDir>"
     ]
+  },
+  "lint-staged": {
+    "src/**/*.{js,ts,jsx,tsx}": [
+      "eslint --fix",
+      "git add"
+      ]
   }
 }
