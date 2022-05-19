@@ -4,9 +4,6 @@
   "description": "",
   "author": "",
   "private": true,
-  "husky": {
-    "pre-commit": "echo 'test'"
-  },
   "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -85,8 +82,5 @@
     "modulePaths": [
       "<rootDir>"
     ]
-  },
-  "lint-staged": {
-    "*.js": "eslint --cache --fix"
   }
 }
