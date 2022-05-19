@@ -4,6 +4,9 @@
   "description": "",
   "author": "",
   "private": true,
+  "husky": {
+    "pre-commit": "echo 'test'"
+  },
   "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
