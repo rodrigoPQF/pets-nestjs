@@ -1,34 +1,28 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { Constants, KafkaConfig } from './app.config';
 import { AppService } from './app.service';
+import { ConsumerModule } from './consumer/consumer.module';
 import { FoodConsumerController } from './food/food.controller';
 import { NutritionController } from './nutrition/nutrition.controller';
 import { ValidalgumacoisaController } from './validalgumacoisa/validalgumacoisa.controller';
 
+const kafkaImport = ClientsModule.register([
+  KafkaConfig(Constants.KafkaClientToken),
+]);
+kafkaImport.global = true;
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    ClientsModule.register([
-      {
-        name: 'KAFKA_SERVICE',
-        transport: Transport.KAFKA,
-        options: {
-          client: {
-            brokers: ['localhost:9094'],
-          },
-          consumer: {
-            groupId: 'my-consumer-' + Math.random(),
-          },
-        },
-      },
-    ]),
+    kafkaImport,
+    ConsumerModule,
   ],
-  controllers: [
-    FoodConsumerController,
-    NutritionController,
-    ValidalgumacoisaController,
-  ],
+  // controllers: [
+  //   FoodConsumerController,
+  //   NutritionController,
+  //   ValidalgumacoisaController,
+  // ],
   providers: [AppService],
 })
 export class AppModule {}

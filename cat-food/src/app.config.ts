@@ -13,12 +13,19 @@ export const KafkaConfig = (
     options: {
       retryAttempts: 10,
       client: {
-        brokers: [process.env.KAFKA_BROKER || 'localhost:9094'],
+        brokers: ['localhost:9094'],
+      },
+      consumer: {
+        groupId: 'my-consumer-' + Math.random(),
+        heartbeatInterval: 1000,
+      },
+      subscribe: {
+        fromBeginning: true,
       },
     },
   };
 };
 
 export enum Constants {
-  kafkaClientToken = 'KAFKA_CLIENT',
+  KafkaClientToken = 'KAFKA_CLIENT',
 }

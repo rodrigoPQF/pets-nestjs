@@ -6,7 +6,7 @@ import { CatsModule } from './cats/cats.module';
 import { ProducerModule } from './producer/producer.module';
 
 const kafkaImport = ClientsModule.register([
-  KafkaConfig(Constants.KafkaClientToken),
+  KafkaConfig(Constants.kafkaClientToken),
 ]);
 
 kafkaImport.global = true;
